@@ -1,0 +1,15 @@
+<%- include('../partials/header') %>
+    <a href="/bookshelves/new">New Bookshelf</a>
+    <ul>
+        <% bookshelves.forEach(function(b) { %>
+            <li>
+                <%= b.name %>
+            </li>
+            <li>
+                <%= b.numBooks %>
+            </li>
+
+
+            <% }); %>
+    </ul>
+    <%- include('../partials/footer') %>
