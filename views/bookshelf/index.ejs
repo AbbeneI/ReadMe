@@ -1,15 +1,18 @@
 <%- include('../partials/header') %>
-    <a href="/bookshelves/new">New Bookshelf</a>
-    <ul>
-        <% bookshelves.forEach(function(b) { %>
-            <li>
-                <%= b.name %>
-            </li>
-            <li>
-                <%= b.numBooks %>
-            </li>
+    <h1>My Library</h1>
+    <section class="main">
+        <a href="/bookshelves/new">New Bookshelf</a>
+        <div class="bookshelf-container">
 
-
-            <% }); %>
-    </ul>
+            <% if(user){ bookshelves.forEach(function(b) { %>
+                <div class="bookshelf">
+                    <h6>
+                        <a href="/bookshelves/<%= b._id %>">
+                            <%= b.name %>
+                        </a>
+                    </h6>
+                </div>
+                <% }); } %>
+        </div>
+    </section>
     <%- include('../partials/footer') %>

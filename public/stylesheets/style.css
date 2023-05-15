@@ -1,8 +1,91 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 a {
   color: #00B7FF;
 }
+
+p {
+  margin: 0;
+}
+
+.main {
+  height: 80%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bookshelf-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 20%;
+  height: 100%;
+  border: 1px solid grey;
+}
+
+.bookshelf {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid grey;
+  height: fit-content;
+  width: 100%;
+}
+
+.thumbnail {
+  background: grey;
+  height: 90px;
+  width: 60px;
+}
+
+.book-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  border: 1px solid grey;
+}
+
+.book {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid grey;
+  height: fit-content;
+}
+
+/* <div class="bookshelf">
+<div class="thumbnail"></div>
+<h3>
+    <%= b.name %>
+</h3>
+
+<p>
+    Number of books:
+</p>
+
+<p>
+    <%= b.numBooks %>
+</p>
+
+</div> */

@@ -13,7 +13,8 @@ const bookshelfSchema = new Schema({
     },
     numBooks: {
         type: Number,
-        min: 0
+        min: 0,
+        default: 0
     },
     books: {
         type: [Schema.Types.ObjectId],
