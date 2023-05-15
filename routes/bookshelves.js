@@ -5,11 +5,13 @@ const bookshelvesCtrl = require('../controllers/bookshelves');
 
 //---------- GET methods ----------
 router.get('/home', bookshelvesCtrl.index);
-router.get('/bookshelves/:id', bookshelvesCtrl.detail);
-router.get('/bookshelves', bookshelvesCtrl.newBookshelf);
+router.get('/bookshelf/:id', bookshelvesCtrl.detail);
+router.get('/bookshelf', bookshelvesCtrl.newBookshelf);
 
 //---------- Other methods ----------
-router.post('/bookshelves', bookshelvesCtrl.create);
-router.patch('/bookshelves/:id', bookshelvesCtrl.edit);
+router.post('/bookshelf', bookshelvesCtrl.create);
+router.patch('/bookshelf/:id', bookshelvesCtrl.edit);
+router.delete('/bookshelf/:id', bookshelvesCtrl.deleteBookshelf);
+
 
 module.exports = router;

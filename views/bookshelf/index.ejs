@@ -1,16 +1,25 @@
 <%- include('../partials/header') %>
     <h1>My Library</h1>
     <section class="main">
-        <a href="/bookshelves">New Bookshelf</a>
+        <a href="/bookshelf/create">New Bookshelf</a>
         <div class="bookshelf-container">
 
             <% if(user){ bookshelves.forEach(function(b) { %>
                 <div class="bookshelf">
                     <h6>
-                        <a href="/bookshelves/<%= b._id %>">
+                        <a href="/bookshelf/<%= b._id %>">
                             <%= b.name %>
                         </a>
                     </h6>
+                    <div class="delete-container">
+                        <form action="/bookshelf/<%= b._id %>?_method=DELETE" method="POST">
+                            <button class="delete" type="submit">
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </form>
+                    </div>
+
                 </div>
                 <% }); } %>
         </div>

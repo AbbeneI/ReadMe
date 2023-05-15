@@ -7,6 +7,7 @@ module.exports = {
     create,
     detail,
     edit,
+    deleteBookshelf,
 };
 
 async function index(req, res, next) {
@@ -82,22 +83,24 @@ async function edit(req, res, next) {
 
 async function deleteBookshelf(req, res, next) {
 
-    BattleTeam.findById(req.params.id)
-        .then((battleTeam) => {
-            if (!battleTeam.user.equals(req.user._id)) throw new Error('Unauthorized')
-            return battleTeam.deleteOne()
-        })
-        .then(() => res.redirect('/battle-teams'))
-        .catch(next)
+    // BattleTeam.findById(req.params.id)
+    //     .then((battleTeam) => {
+    //         if (!battleTeam.user.equals(req.user._id)) throw new Error('Unauthorized')
+    //         return battleTeam.deleteOne()
+    //     })
+    //     .then(() => res.redirect('/battle-teams'))
+    //     .catch(next) 
 
 
 
     Bookshelf.findById(req.params.id)
         .then(bookshelf => {
-            console.log('\n----------- Debugging Bookshelves Controller: detail() -----------\n', 'bookshelf', bookshelf, '\n');
-            if (!battleTeam.user.equals(req.user._id)) throw new Error('Unauthorized')
-            return battleTeam.deleteOne()
+            console.log('\n----------- Debugging Bookshelves Controller: deleteBookshelf() -----------\n', 'bookshelf', bookshelf, '\n');
+
+            if (!bookshelf.user.equals(req.user._id)) throw new Error('Unauthorized')
+            return bookshelf.deleteOne()
         })
         .then(() => res.redirect('/home'))
         .catch(next)
 }
+

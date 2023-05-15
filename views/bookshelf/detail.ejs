@@ -4,7 +4,7 @@
         Editing <%= bookshelf.name %>
     </h1>
     <h6>Edit your bookshelf name</h6>
-    <form action="/bookshelves/<%= bookshelf._id %>?_method=PATCH" method="POST" autocomplete="off">
+    <form action="/bookshelf/<%= bookshelf._id %>?_method=PATCH" method="POST" autocomplete="off">
         <label for="name">
             <input value="<%= bookshelf.name %>" name="name">
         </label>
