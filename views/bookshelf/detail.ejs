@@ -1,6 +1,7 @@
 <%- include('../partials/header') %>
 
-    <h1>Editing <%= bookshelf.name %>
+    <h1>
+        Editing <%= bookshelf.name %>
     </h1>
     <h6>Edit your bookshelf name</h6>
     <form action="/bookshelves/<%= bookshelf._id %>?_method=PATCH" method="POST" autocomplete="off">

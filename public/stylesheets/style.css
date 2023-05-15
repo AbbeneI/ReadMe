@@ -32,12 +32,14 @@ p {
 
 .bookshelf-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
   width: 20%;
   height: 100%;
   border: 1px solid grey;
 }
+
+.bookshelf .delete {}
 
 .bookshelf {
   display: flex;

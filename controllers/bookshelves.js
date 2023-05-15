@@ -10,7 +10,7 @@ module.exports = {
 };
 
 async function index(req, res, next) {
-    console.log('\n checking user:', req.user, '\n')
+    // console.log('\n checking user:', req.user, '\n')
     if (req.user) {
         await Bookshelf.find({ user: req.user._id })
             .then(bookshelves => {
@@ -26,12 +26,10 @@ async function index(req, res, next) {
             title: 'My Library',
         });
     }
+
 }
 
 async function newBookshelf(req, res, next) {
-    console.log('\n checking user:', req.user, '\n')
-
-    // const movies = await Movie.find({});
     res.render('bookshelf/new', {
         title: 'My New Bookshelf'
     });
@@ -39,6 +37,7 @@ async function newBookshelf(req, res, next) {
 
 async function create(req, res, next) {
     console.log('\n-------------------------\n', 'Debugging Controller: create()\n', req.body)
+    console.log('\n checking user:', req.user, '\n')
 
     for (let key in req.body) {
         if (req.body[key] === '') delete req.body[key];
@@ -57,33 +56,48 @@ async function create(req, res, next) {
 }
 
 async function detail(req, res, next) {
-    Bookshelf.findById(req.params.id).then(bookshelf => {
-        console.log('\n----------- Debugging Bookshelves Controller: detail() -----------\n', 'bookshelf', bookshelf, '\n');
+    Bookshelf.findById(req.params.id)
+        .then(bookshelf => {
+            console.log('\n----------- Debugging Bookshelves Controller: detail() -----------\n', 'bookshelf', bookshelf, '\n');
 
-        let titleString = `Edit ${bookshelf.name}`;
-
-        res.render('bookshelf/detail', {
-            bookshelf
-        });
-    }
-    )
-    // bookShelf = bookShelf[0];
+            res.render('bookshelf/detail', {
+                bookshelf
+            });
+        })
+        .catch(next)
 
 }
 
 async function edit(req, res, next) {
-
     Bookshelf.findById(req.params.id)
         .then((bookshelf) => {
-            console.log('\n----------- Debugging Bookshelves Controller: edit() -----------\n', 'bookshelf', bookshelf, '\nreq.body: ', req.body);
-
             if (!bookshelf.user.equals(req.user._id)) throw new Error('Unauthorized')
             return bookshelf.updateOne(req.body)
         })
         .then((bookshelf) => {
-            console.log('\n----------- Debugging Bookshelves Controller: edit() -----------\n', 'bookshelf', bookshelf, '\nreq.body: ', req.body);
-
             res.redirect(`/bookshelves/${req.params.id}`)
         })
+        .catch(next)
+}
+
+async function deleteBookshelf(req, res, next) {
+
+    BattleTeam.findById(req.params.id)
+        .then((battleTeam) => {
+            if (!battleTeam.user.equals(req.user._id)) throw new Error('Unauthorized')
+            return battleTeam.deleteOne()
+        })
+        .then(() => res.redirect('/battle-teams'))
+        .catch(next)
+
+
+
+    Bookshelf.findById(req.params.id)
+        .then(bookshelf => {
+            console.log('\n----------- Debugging Bookshelves Controller: detail() -----------\n', 'bookshelf', bookshelf, '\n');
+            if (!battleTeam.user.equals(req.user._id)) throw new Error('Unauthorized')
+            return battleTeam.deleteOne()
+        })
+        .then(() => res.redirect('/home'))
         .catch(next)
 }
