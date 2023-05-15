@@ -1,10 +1,11 @@
 <%- include('../partials/header') %>
     <h1>My Library</h1>
     <section class="main">
-        <a href="/bookshelf/create">New Bookshelf</a>
         <div class="bookshelf-container">
+            <a href="/bookshelf/create">New Bookshelf</a>
 
             <% if(user){ bookshelves.forEach(function(b) { %>
+
                 <div class="bookshelf">
                     <h6>
                         <a href="/bookshelf/<%= b._id %>">
@@ -23,5 +24,16 @@
                 </div>
                 <% }); } %>
         </div>
+        <div class="books-container">
+            <div class="book">
+                <div class="thumbnail"></div>
+                <h3>Book Title</h3>
+                <p>Book Author</p>
+                <p>
+                    Book Summary
+                </p>
+            </div>
+        </div>
     </section>
+
     <%- include('../partials/footer') %>

@@ -23,50 +23,65 @@ async function index(req, res, next) {
             .catch(next)
     }
     else {
-        res.render('bookshelf/index', {
-            title: 'My Library',
-        });
+        res.redirect('/');
     }
-
 }
 
 async function newBookshelf(req, res, next) {
-    res.render('bookshelf/new', {
-        title: 'My New Bookshelf'
-    });
+    if (req.user) {
+        res.render('bookshelf/new', {
+            title: 'My New Bookshelf'
+        });
+    }
+    else {
+        res.redirect('/');
+    }
 }
 
 async function create(req, res, next) {
-    console.log('\n-------------------------\n', 'Debugging Controller: create()\n', req.body)
-    console.log('\n checking user:', req.user, '\n')
+    if (req.user) {
 
-    for (let key in req.body) {
-        if (req.body[key] === '') delete req.body[key];
-    }
-    try {
-        req.body.user = req.user._id
-        console.log('\nafter changes: ', req.body);
-        await Bookshelf.create(req.body);
+        console.log('\n-------------------------\n', 'Debugging Controller: create()\n', req.body)
+        console.log('\n checking user:', req.user, '\n')
 
-        res.redirect('/home');
-    } catch (err) {
-        // Typically some sort of validation error
-        console.log(err);
-        res.render('/error', { errorMsg: err.message });
+        for (let key in req.body) {
+            if (req.body[key] === '') delete req.body[key];
+        }
+        try {
+            req.body.user = req.user._id
+            console.log('\nafter changes: ', req.body);
+            await Bookshelf.create(req.body);
+
+            res.redirect('/home');
+        } catch (err) {
+            // Typically some sort of validation error
+            console.log(err);
+            res.render('/error', { errorMsg: err.message });
+        }
     }
+    else {
+        res.redirect('/');
+    }
+
 }
 
 async function detail(req, res, next) {
-    Bookshelf.findById(req.params.id)
-        .then(bookshelf => {
-            console.log('\n----------- Debugging Bookshelves Controller: detail() -----------\n', 'bookshelf', bookshelf, '\n');
+    if (req.user) {
 
-            res.render('bookshelf/detail', {
-                bookshelf
-            });
-        })
-        .catch(next)
 
+        Bookshelf.findById(req.params.id)
+            .then(bookshelf => {
+                console.log('\n----------- Debugging Bookshelves Controller: detail() -----------\n', 'bookshelf', bookshelf, '\n');
+
+                res.render('bookshelf/detail', {
+                    bookshelf
+                });
+            })
+            .catch(next)
+    }
+    else {
+        res.redirect('/');
+    }
 }
 
 async function edit(req, res, next) {
@@ -82,17 +97,6 @@ async function edit(req, res, next) {
 }
 
 async function deleteBookshelf(req, res, next) {
-
-    // BattleTeam.findById(req.params.id)
-    //     .then((battleTeam) => {
-    //         if (!battleTeam.user.equals(req.user._id)) throw new Error('Unauthorized')
-    //         return battleTeam.deleteOne()
-    //     })
-    //     .then(() => res.redirect('/battle-teams'))
-    //     .catch(next) 
-
-
-
     Bookshelf.findById(req.params.id)
         .then(bookshelf => {
             console.log('\n----------- Debugging Bookshelves Controller: deleteBookshelf() -----------\n', 'bookshelf', bookshelf, '\n');
