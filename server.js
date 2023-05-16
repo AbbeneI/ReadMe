@@ -10,6 +10,8 @@ const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
 const bookshelvesRouter = require('./routes/bookshelves');
+const booksRouter = require('./routes/books');
+
 
 const app = express();
 
@@ -47,6 +49,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter);
 app.use('/', bookshelvesRouter);
+app.use('/', booksRouter);
+
+
 
 app.use(function (req, res, next) {
   next(createError(404));

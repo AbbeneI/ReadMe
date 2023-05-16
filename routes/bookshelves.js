@@ -5,8 +5,9 @@ const bookshelvesCtrl = require('../controllers/bookshelves');
 
 //---------- GET methods ----------
 router.get('/home', bookshelvesCtrl.index);
+router.get('/bookshelf/new', bookshelvesCtrl.newBookshelf);
 router.get('/bookshelf/:id', bookshelvesCtrl.detail);
-router.get('/bookshelf', bookshelvesCtrl.newBookshelf);
+
 
 //---------- Other methods ----------
 router.post('/bookshelf', bookshelvesCtrl.create);

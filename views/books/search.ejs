@@ -1,0 +1,26 @@
+<%- include('../partials/header') %>
+    <div class="search-results">
+        <% bookResults.forEach(function(b) { %>
+            <div class="book">
+                <div class="thumbnail">
+                    <img src="<%= b.volumeInfo.imageLinks.thumbnail %> " alt="">
+                    <img src="volumeInfo.imageLinks.small" alt="">
+                    <img src="volumeInfo.imageLinks.medium" alt="">
+                    <img src="volumeInfo.imageLinks.large" alt="">
+                    <img src="volumeInfo.imageLinks.extraLarge" alt="">
+                </div>
+
+                <h3>
+                    <%= b.volumeInfo.title %>
+
+                </h3>
+                <p>
+                    <%= b.volumeInfo.authors[0] %>
+                </p>
+                <p>
+                </p>
+            </div>
+            <% }); %>
+
+    </div>
+    <%- include('../partials/footer') %>

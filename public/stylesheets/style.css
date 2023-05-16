@@ -1,3 +1,9 @@
+:root {
+  /* --span-color: rgba(150, 150, 150, 0.5); */
+  --span-color: #000;
+
+}
+
 * {
   box-sizing: border-box;
 }
@@ -5,17 +11,16 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  height: 100vh;
   width: 100vw;
-  position: fixed;
+  position: absolute;
   top: 0;
-  bottom: 0;
   right: 0;
   left: 0;
 }
 
 a {
-  color: #00B7FF;
+  color: inherit;
+  text-decoration: none;
 }
 
 p {
@@ -37,7 +42,7 @@ button {
 }
 
 .main {
-  height: 80%;
+  height: 500px;
   width: 100%;
   padding: 0;
   margin: 0;
@@ -45,14 +50,97 @@ button {
   flex-direction: row;
 }
 
+.login-title {
+  font-size: 36px;
+  margin-bottom: 5px;
+}
+
 .bookshelf-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: center;
   width: 20%;
   height: 100%;
   border: 1px solid grey;
 }
+
+.bookshelf {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: fit-content;
+  width: 100%;
+  height: 3em;
+
+  font-size: 14px;
+  color: var(--span-color);
+
+  position: relative;
+}
+
+.bookshelf:first-child {
+  transition: all 0.2s ease;
+  border-bottom: 1px solid var(--span-color);
+
+}
+
+.bookshelf:first-child:hover {
+  opacity: 1;
+}
+
+.bookshelf a {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 1em;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  height: 100%;
+
+  opacity: 50%;
+}
+
+.bookshelf a:hover {
+  opacity: 1;
+}
+
+.add {
+  right: 10px;
+  position: absolute;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+
+  width: 15px;
+  height: 15px;
+}
+
+.add span {
+  height: 100%;
+  width: 10%;
+  min-width: 1px;
+  min-height: 10px;
+  background: var(--span-color);
+  position: absolute;
+
+  transition: background 0.1s ease;
+}
+
+
+.bookshelf:hover div form button span {
+  background: rgba(150, 150, 150, 1);
+}
+
+.add span:first-child {
+  transform: rotate(90deg);
+}
+
 
 .delete-container {
   display: flex;
@@ -86,10 +174,7 @@ button {
   transition: background 0.1s ease;
 }
 
-.delete:hover span {
-  background: rgba(150, 150, 150, 1);
 
-}
 
 .delete span:first-child {
   transform: rotate(45deg);
@@ -99,21 +184,12 @@ button {
   transform: rotate(-45deg);
 }
 
-.bookshelf {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid grey;
-  height: fit-content;
-  width: 100%;
 
-  position: relative;
-}
+
 
 .thumbnail {
   background: grey;
-  height: 90px;
+  height: fit-content;
   width: 60px;
 }
 
@@ -137,18 +213,149 @@ button {
   height: fit-content;
 }
 
-/* <div class="book">
-<div class="thumbnail"></div>
-<h3>
-    <%= b.name %>
-</h3>
+.login {
+  --size: min(40vw, 40vh);
+  height: var(--size);
+  width: var(--size);
 
-<p>
-    Number of books:
-</p>
+  /* border: 1px solid black; */
 
-<p>
-    <%= b.numBooks %>
-</p>
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
 
-</div> */
+.login h1 {
+  justify-self: flex-start;
+}
+
+.bg-flex {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.google-btn-container {
+  height: 55%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container {
+  width: 100%;
+  padding: 10px 0px;
+  height: 50px;
+  position: relative;
+}
+
+label {
+  position: absolute;
+  height: 90%;
+  width: 100%;
+}
+
+.search {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-bottom: 1px solid black;
+}
+
+.input-placeholder {
+  position: absolute;
+  transform: translateY(40%);
+  font-style: italic;
+  left: 0;
+  transition: all 0.2s ease;
+}
+
+.search:focus+.input-placeholder {
+  opacity: 0;
+}
+
+.search:not(:placeholder-shown)+.input-placeholder {
+  opacity: 1;
+}
+
+.search:valid+.input-placeholder {
+  opacity: 0;
+}
+
+.search-results {
+  width: 100%;
+  height: fit-content;
+  border: 2px solid green;
+  margin-bottom: 20px;
+}
+
+
+
+/* Google button styling from https://codepen.io/tijmenennik/pen/bwYaox (modified by me) */
+
+.google-btn {
+  margin: 0px;
+  width: 100%;
+  min-width: 196px;
+  max-width: 196px;
+  height: 42px;
+  background-color: #fcfcfc;
+  border-radius: 6px;
+  cursor: pointer;
+  cursor: hand;
+  align-self: center;
+  user-select: none;
+
+  border: 1px solid grey;
+
+  transition: all 100ms ease;
+
+  display: flex;
+}
+
+.google-btn .google-icon-wrapper {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 40px;
+  height: 40px;
+  border-radius: 2px;
+  user-select: none
+}
+
+.google-btn .google-icon-svg {
+  position: absolute;
+  margin-top: 11px;
+  margin-left: 11px;
+  width: 18px;
+  height: 18px;
+  user-select: none
+}
+
+.google-btn .btn-text {
+  float: right;
+  margin: 11px 14px 40px 40px;
+  color: #000;
+  font-size: 14px;
+  letter-spacing: .2px;
+  font-family: Roboto;
+  user-select: none
+}
+
+.google-btn:hover {
+  background: rgba(200, 200, 200, 0.5);
+  user-select: none
+}
+
+.google-btn:active {
+  box-shadow: 0 1px 1px #757575;
+  background: #F8F8F8;
+  color: #fff;
+  user-select: none
+}

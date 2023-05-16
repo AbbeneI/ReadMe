@@ -1,3 +1,42 @@
-<%- include('./partials/header') %>
+<!DOCTYPE html>
+<html lang="en">
 
-  <%- include('./partials/footer') %>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Library</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:400" />
+
+
+</head>
+
+<body>
+
+
+  <% if (user) { %>
+    <a href="/home">Home</a>
+    <a class="nav-link" href="/logout">Log Out</a>
+    <% } else { %>
+      <div class="bg-flex">
+        <div class="login">
+          <h1 class="login-title">Log in</h1>
+          <div class="google-btn-container">
+            <a href="/auth/google">
+              <div class="google-btn">
+                <div class="google-icon-wrapper">
+                  <img class="google-icon-svg"
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                </div>
+                <p class="btn-text"><b>Continue with Google</b></p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <% } %>
+
+        <%- include('./partials/footer') %>
