@@ -16,10 +16,10 @@ const bookshelfSchema = new Schema({
         min: 0,
         default: 0
     },
-    books: {
-        type: [Schema.Types.ObjectId],
+    books: [{
+        type: Schema.Types.ObjectId,
         ref: 'Books',
-    },
+    }],
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',

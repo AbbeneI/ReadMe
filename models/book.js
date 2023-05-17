@@ -1,8 +1,11 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
-
 const bookSchema = new mongoose.Schema({
+    googleID: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true
@@ -27,23 +30,33 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    industryIdentifiers: {
-        type: [Object],
+    pageCount: {
+        type: Number,
         required: true
     },
-    coverImg: {
+    printType: {
         type: String,
+        required: true
     },
-    numberRatings: {
-        type: Number,
+    categories: {
+        type: [String],
         required: true
     },
     averageRating: {
         type: Number,
         required: true
     },
-    categories: {
-        type: [String],
+    ratingsCount: {
+        type: Number,
+        required: true
+    },
+    thumbnail: {
+        type: String,
+        required: true
+    },
+    language: {
+        type: String,
+        required: true
     },
     reviews: {
         type: [Schema.Types.ObjectId],
@@ -54,8 +67,11 @@ const bookSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     }
-}, {
-    timestamps: true
-})
+},
+    {
+        timestamps: true
+    })
+
+
 
 module.exports = mongoose.model('Book', bookSchema);

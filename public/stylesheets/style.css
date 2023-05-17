@@ -3,6 +3,8 @@
   --span-color: #000;
   --book-bg: grey;
 
+  --bookshelf-height: 3em;
+
   --color-btn-add-book: darkgray;
   --color-contrast-btn-add-book: white;
 }
@@ -32,14 +34,22 @@
 }
 
 body {
+ 
+}
+
+.bg {
   padding: 50px;
+  padding-top:5em;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   width: 100vw;
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
+
 }
+
+
 
 a {
   color: inherit;
@@ -81,19 +91,26 @@ button {
   justify-content: flex-start;
   align-items: center;
   width: 20%;
+  min-width: 160px;
+  border-top: 1px solid black;
   height: 100%;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
+}
+
+.newandpop-container {
+
 }
 
 .bookshelf {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   align-content: center;
   height: fit-content;
   width: 100%;
-  height: 3em;
+  height: var(--bookshelf-height);
+  padding-left: 1em;
 
   font-size: 14px;
   color: var(--span-color);
@@ -101,13 +118,16 @@ button {
   position: relative;
 }
 
-.bookshelf:first-child {
-  transition: all 0.2s ease;
-  border-bottom: 1px solid var(--span-color);
-
+.bookshelf.title {
+  /* border-bottom: 1px solid black; */
 }
 
-.bookshelf:first-child:hover {
+.bookshelf.add {
+  transition: all 0.2s ease;
+  border-bottom: 1px solid var(--span-color);
+}
+
+.bookshelf.add:hover {
   opacity: 1;
 }
 
@@ -115,13 +135,18 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  padding-left: 1em;
   align-items: center;
   align-content: center;
   width: 100%;
   height: 100%;
 
   opacity: 50%;
+}
+
+.bookshelf a.first-link {
+  height:100%;
+  width: 15px;
+  background: red;
 }
 
 .bookshelf a:hover {
@@ -225,8 +250,19 @@ button {
   justify-content: flex-start;
   width: 80%;
   height: 100%;
+  /* border: 1px solid grey; */
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+}
+
+.newandpop-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  height: 150px;
   border: 1px solid grey;
-  border-left: 0px;
+  margin-bottom: 2em;
 }
 
 .book-results {
@@ -250,7 +286,7 @@ button {
   height: fit-content;
   max-height: 430px;
   width: fit-content;
-  min-width: 215px;
+  min-width: 254px;
   max-width: 270px;
 
   position: relative;
@@ -438,7 +474,25 @@ label {
   align-items: center;
 }
 
+.navbar {
+  position: absolute;
+  z-index: 2;
+  width: 100vw;
+  top: 0;
+  height: 3.5em;
+  margin: 0;
+  left: 0;
+  padding: 1em;
+    border-bottom: 1px solid black; 
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start;
+   align-items: center;
+   gap: .5em;
+}
 
+.nav-link.logout {
+}
 
 .search-container {
   width: 100%;
