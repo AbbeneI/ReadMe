@@ -19,8 +19,16 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    publishedDate: {
+        type: String,
+        required: true
+    },
     description: {
         type: String,
+        required: true
+    },
+    industryIdentifiers: {
+        type: [Object],
         required: true
     },
     coverImg: {
@@ -35,7 +43,7 @@ const bookSchema = new mongoose.Schema({
         required: true
     },
     categories: {
-        type: Number,
+        type: [String],
     },
     reviews: {
         type: [Schema.Types.ObjectId],

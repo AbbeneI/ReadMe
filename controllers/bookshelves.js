@@ -67,11 +67,10 @@ async function create(req, res, next) {
 
 async function detail(req, res, next) {
     if (req.user) {
-
-
+        
         Bookshelf.findById(req.params.id)
             .then(bookshelf => {
-                console.log('\n----------- Debugging Bookshelves Controller: detail() -----------\n', 'bookshelf', bookshelf, '\n');
+                // console.log('\n----------- Debugging Bookshelves Controller: detail() -----------\n', 'bookshelf', bookshelf, '\n');
 
                 res.render('bookshelf/detail', {
                     bookshelf
