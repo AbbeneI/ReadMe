@@ -1,70 +1,83 @@
 <%- include('../partials/header') %>
+    <div class="search-container">
+        <form action="/search" method="POST">
+            <input class="search" type="search" name="search" pattern="\S+.*" autocomplete="off" required>
+            <span class="input-placeholder">Search</span>
+            <input type="Submit" value="Submit">
+        </form>
+    </div>
     <div class="book-results">
-        <% let count=0; %>
 
-            <% bookResults.forEach(function(b) { %>
+        <% if(user){ bookResults.forEach(function(b) { %>
+            <%console.log('\nbookResult in EJS:',b) %>
 
-                <div class="book vert">
-                    <div class="book-bg"></div>
+                <% let count=0; %>
 
-                    <div class="book-thumbnail">
-                        <img src="<%= b.volumeInfo.imageLinks.thumbnail %> " alt="">
-                    </div>
+                    <div class="book vert">
+                        <div class="book-bg"></div>
 
-                    <h3 class="book-title">
-                        <%= b.volumeInfo.title %>
-                    </h3>
-                    <h4 class="book-authors">
-                        by <% b.volumeInfo.authors.forEach(function(author, i) { %>
-
-                            <% if(b.volumeInfo.authors.length> 1 && i < b.volumeInfo.authors.length - 1) { %>
-                                    <%= author + ', ' %>
-
-                                        <% } else{ %>
-
-                                            <%= author %>
-                                                <% }}); %>
-                    </h4>
-
-                    <div class="book-tags">
-                        <% b.volumeInfo.categories.forEach(function(category, i) { %>
-                            <span>
-                                <%= category %>
-                            </span>
-                            <% }); %>
-                    </div>
-
-                    <div class="book-rating">
-
-                        <div class="star-rating">
-                            <input type="radio" name="stars" id="<%=count%>star-a" value="5" />
-                            <label for="<%=count%>star-a"></label>
-
-                            <input type="radio" checked="true" name="stars" id="<%=count%>star-b" value="4" />
-                            <label for="<%=count%>star-b"></label>
-
-                            <input type="radio" name="stars" id="<%=count%>star-c" value="3" />
-                            <label for="<%=count%>star-c"></label>
-
-
-                            <input type="radio" name="stars" id="<%=count%>star-d" value="2" />
-                            <label for="<%=count%>star-d"></label>
-
-
-                            <input type="radio" name="stars" id="<%=count%>star-e" value="1" />
-                            <label for="<%=count%>star-e"></label>
+                        <div class="book-thumbnail">
+                            <img src="<%= b.thumbnail %> " alt="">
                         </div>
 
-                        <span>
-                            <%= b.volumeInfo.averageRating %>
-                                (<%= b.volumeInfo.ratingsCount %> ratings)
-                        </span>
-                    </div>
-                    <form action="/search/add/<%= b.id %>" method="POST">
-                        <button class="btn add-book" type="submit">Add Book to Library</button>
-                    </form>
-                </div>
-                <% count++ }); %>
+                        <h3 class="book-title">
+                            <%= b.title %>
+                        </h3>
+                        <h4 class="book-authors">
 
+                            by <% b.authors.forEach(function(author, i) { %>
+
+                                <% if(b.authors.length> 1 && i < b.authors.length - 1) { %>
+                                        <%= author + ', ' %>
+
+                                            <% } else{ %>
+
+                                                <%= author %>
+                                                    <% }}); %>
+                        </h4>
+
+                        <div class="book-tags">
+                            <% if(Array.isArray(b.categories)) { b.categories.forEach(function(category, i) { %>
+                                <span>
+                                    <%= category %>
+                                </span>
+                                <% }); } else{ } %>
+                        </div>
+
+                        <div class="book-rating">
+
+                            <div class="star-rating">
+                                <input type="radio" name="<%=count%>stars" id="<%=count%>star-a" value="5" />
+                                <label for="<%=count%>star-a"></label>
+
+                                <input type="radio" checked="true" name="stars" id="<%=count%>star-b" value="4" />
+                                <label for="<%=count%>star-b"></label>
+
+                                <input type="radio" name="<%=count%>stars" id="<%=count%>star-c" value="3" />
+                                <label for="<%=count%>star-c"></label>
+
+
+                                <input type="radio" name="<%=count%>stars" id="<%=count%>star-d" value="2" />
+                                <label for="<%=count%>star-d"></label>
+
+
+                                <input type="radio" name="<%=count%>stars" id="<%=count%>star-e" value="1" />
+                                <label for="<%=count%>star-e"></label>
+                            </div>
+
+                            <span>
+                                <%= b.averageRating %>
+                                    (<%= b.ratingsCount %> ratings)
+                            </span>
+                        </div>
+                        <% if(b.inDB===true) { %>
+                            <button class="btn add-book">Book in Library</button>
+                            <% } else { %>
+                                <form action="/search/add/<%= b.googleID %>" method="POST">
+                                    <button class="btn add-book" type="submit">Add Book to Library</button>
+                                </form>
+                                <% }%>
+                    </div>
+                    <% count++ }); } %>
     </div>
     <%- include('../partials/footer') %>

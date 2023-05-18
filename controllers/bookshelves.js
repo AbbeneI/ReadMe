@@ -1,5 +1,6 @@
 const Bookshelf = require('../models/bookshelf');
-// const Performer = require('../models/performer');
+const Book = require('../models/book');
+
 
 module.exports = {
     index,
@@ -13,13 +14,21 @@ module.exports = {
 async function index(req, res, next) {
     // console.log('\n checking user:', req.user, '\n')
     if (req.user) {
-        await Bookshelf.find({ user: req.user._id })
-            .then(bookshelves => {
-                res.render('bookshelf/index', {
-                    title: 'My Library',
-                    bookshelves
-                });
+        Bookshelf.find({ user: req.user._id })
+            .then(bookShelves => {
+                Book.find({ user: req.user.id })
+                    .then(books => {
+                        // console.log('\n\n------bookshelves in index----\n', arr[0], '\n------books in index----\n', arr[1])
+                        res.render('bookshelf/index', {
+                            title: 'My Library',
+                            bookshelves: bookShelves,
+                            books
+                        });
+                    })
+
+
             })
+
             .catch(next)
     }
     else {
@@ -67,7 +76,7 @@ async function create(req, res, next) {
 
 async function detail(req, res, next) {
     if (req.user) {
-        
+
         Bookshelf.findById(req.params.id)
             .then(bookshelf => {
                 // console.log('\n----------- Debugging Bookshelves Controller: detail() -----------\n', 'bookshelf', bookshelf, '\n');

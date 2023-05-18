@@ -33,13 +33,11 @@
   border: 1px solid var(--color-btn-add-book);
 }
 
-body {
- 
-}
+body {}
 
 .bg {
   padding: 50px;
-  padding-top:5em;
+  padding-top: 5em;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   width: 100vw;
   position: absolute;
@@ -97,9 +95,7 @@ button {
   /* border: 1px solid grey; */
 }
 
-.newandpop-container {
-
-}
+.newandpop-container {}
 
 .bookshelf {
   display: flex;
@@ -144,7 +140,7 @@ button {
 }
 
 .bookshelf a.first-link {
-  height:100%;
+  height: 100%;
   width: 15px;
   background: red;
 }
@@ -237,7 +233,9 @@ button {
 .book-thumbnail img {
   box-shadow: 2px 0px 4px 4px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
-  height: 200px;
+  max-height: 175px;
+  max-width: 175px;
+
 }
 
 .book-thumbnail:hover img {
@@ -255,7 +253,7 @@ button {
   border-top: 1px solid black;
 }
 
-.newandpop-container{
+.newandpop-container {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -266,9 +264,9 @@ button {
 }
 
 .book-results {
-  width: 100%;
+  width: 1400px;
   padding: 10px 0px;
-  height: 50px;
+  height: fit-content;
   position: relative;
 
   display: flex;
@@ -300,6 +298,8 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  height: 400px;
+  width: 255px;
 }
 
 .book.horiz {
@@ -483,16 +483,15 @@ label {
   margin: 0;
   left: 0;
   padding: 1em;
-    border-bottom: 1px solid black; 
-   display: flex;
-   flex-direction: row;
-   justify-content: flex-start;
-   align-items: center;
-   gap: .5em;
+  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: .5em;
 }
 
-.nav-link.logout {
-}
+.nav-link.logout {}
 
 .search-container {
   width: 100%;

@@ -1,0 +1,10 @@
+<%- include('../partials/header') %>
+    <p>enter a search term</p>
+    <div class="search-container">
+        <form action="/search" method="POST">
+            <input class="search" type="search" name="search" pattern="\S+.*" autocomplete="off" required>
+            <span class="input-placeholder">Search</span>
+            <input type="Submit" value="Submit">
+        </form>
+    </div>
+    <%- include('../partials/footer') %>
