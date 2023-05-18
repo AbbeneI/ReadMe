@@ -18,7 +18,8 @@ const bookshelfSchema = new Schema({
     },
     books: [{
         type: Schema.Types.ObjectId,
-        ref: 'Books',
+        ref: 'Book',
+        default: ''
     }],
     user: {
         type: Schema.Types.ObjectId,

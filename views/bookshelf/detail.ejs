@@ -10,4 +10,26 @@
         </label>
         <button class="btn my-button" type="submit">Edit</button>
     </form>
+
+    <h6>Edit the collection of books in this bookshelf</h6>
+    <div class="book-results">
+        <% console.log('\nbooks in details.ejs\n',books,'typeof books',typeof(books)) %>
+            <% if( Array.isArray(books) && typeof(books) !=='undefined' ) { %>
+                <% books.forEach(function(b) { %>
+                    <% if(bookshelf.books.includes(b._id) ) { %>
+                        <tr scope="row">
+                            <td>
+                                <%= b.title %>
+                            </td>
+                        </tr>
+                        <% } %>
+                            <% });%>
+                                <% } else { %>
+                                    <% console.log('\nbookshelf in details.ejs\n',bookshelf) %>
+
+                                        <p> your bookshelf is empty</p>
+                                        <% }%>
+
+    </div>
+
     <%- include('../partials/footer') %>

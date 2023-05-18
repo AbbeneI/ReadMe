@@ -264,16 +264,12 @@ async function create(req, res, next) {
                 .then(bookData => {
                     console.log('\nchecking bookData gID', bookData.googleID)
 
-
-
                     Book.findOne({ googleID: bookData.googleID })
                         .then(findResults => {
                             console.log('findResults', findResults)
-
                             //add the book to the collection if no books currently exist with same googleID
                             if (findResults === null) {
                                 console.log('\n\n adding:', bookData.title, '\n')
-
                                 //put the book in the bookshelf's ref array
                                 return Book.create(bookData)
                                     .then(bookDataTwo => {
@@ -292,10 +288,8 @@ async function create(req, res, next) {
                                                         b[0].populate('books');
                                                         console.log('\nthis is b after push and populate: \n', b)
                                                     })
-
                                             })
                                     })
-
                             }
                             //otherwise, don't add and console.log error message
                             else {

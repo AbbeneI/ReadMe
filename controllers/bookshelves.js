@@ -81,8 +81,14 @@ async function detail(req, res, next) {
             .then(bookshelf => {
                 // console.log('\n----------- Debugging Bookshelves Controller: detail() -----------\n', 'bookshelf', bookshelf, '\n');
 
+                let books = Book.find({})
+               return [bookshelf,books]
+            })
+            .then((arr) => {
+
                 res.render('bookshelf/detail', {
-                    bookshelf
+                    bookshelf: arr[0],
+                    books: arr[1]
                 });
             })
             .catch(next)
