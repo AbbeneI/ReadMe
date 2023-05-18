@@ -25,7 +25,7 @@
                         </h3>
                         <h4 class="book-authors">
 
-                            by <% b.authors.forEach(function(author, i) { %>
+                            by <% if(Array.isArray(b.authors)) { b.authors.forEach(function(author, i) { %>
 
                                 <% if(b.authors.length> 1 && i < b.authors.length - 1) { %>
                                         <%= author + ', ' %>
@@ -33,7 +33,9 @@
                                             <% } else{ %>
 
                                                 <%= author %>
-                                                    <% }}); %>
+                                                    <% }}); } else{ %>
+                                                        <%= b.authors %>
+                                                            <% } %>
                         </h4>
 
                         <div class="book-tags">
@@ -71,10 +73,21 @@
                             </span>
                         </div>
                         <% if(b.inDB===true) { %>
-                            <button class="btn add-book">Book in Library</button>
+                            <p>Book in Library</p>
                             <% } else { %>
                                 <form action="/search/add/<%= b.googleID %>" method="POST">
-                                    <button class="btn add-book" type="submit">Add Book to Library</button>
+                                    <!-- <button class="btn add-book" type="submit">Add Book to Library</button> -->
+
+                                    <label for="bookshelf" class="form-label">Add Book to Library</label>
+                                    <select name="bookshelf">
+                                        <% bookshelves.forEach(function(b) { %>
+                                            <option class="bookshelf-select" value="<%= b.name %>">
+                                                <%= b.name %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                    <button class="btn add-book" type="submit">Add book to library</button>
+
                                 </form>
                                 <% }%>
                     </div>

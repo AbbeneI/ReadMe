@@ -1,4 +1,7 @@
+const { BADRESP } = require('dns');
 const Book = require('../models/book');
+const Bookshelf = require('../models/bookshelf');
+
 
 module.exports = {
     search,
@@ -158,11 +161,17 @@ async function search(req, res, next) {
                         // console.log('bR authors', bRauthors, '\nbR categories', bRcategories)
                         // console.log('bookResults in Controller\n', bookResults)
 
-                        res.render('books/search', {
-                            title: 'My Library',
-                            bookResults,
-                            searchTerms,
-                        });
+                        Bookshelf.find({ user: req.user._id })
+                            .then(bookShelves => {
+
+                                res.render('books/search', {
+                                    title: 'My Library',
+                                    bookResults,
+                                    searchTerms,
+                                    bookshelves: bookShelves
+                                });
+                            })
+
                     })
 
             })
@@ -176,7 +185,7 @@ async function search(req, res, next) {
 async function create(req, res, next) {
     if (req.user) {
 
-        console.log('\n-------------------------\n', 'Debugging Books Controller: create()\n', req.params.id)
+        console.log('\n-------------------------\n', 'Debugging Books Controller: create()\n', req.params.id, '\nreq.body in create', req.body)
 
         let id = req.params.id;
         let newBook = null;
@@ -190,57 +199,114 @@ async function create(req, res, next) {
                 .then((res) => res.json())
                 .then(googleBooksResponse => {
                     console.log('\n\n--- GoogleBooksResponse: ---\n', googleBooksResponse);
+                    //renaming for simplicity
+                    let bR = googleBooksResponse;
 
                     req.body.user = req.user._id
 
-                    newBook = {
-                        googleID: googleBooksResponse.id,
-                        title: googleBooksResponse.volumeInfo.title,
-                        subtitle: googleBooksResponse.volumeInfo.subtitle,
-                        authors: googleBooksResponse.volumeInfo.authors,
-                        publisher: googleBooksResponse.volumeInfo.publisher,
-                        publishedDate: googleBooksResponse.volumeInfo.publishedDate,
-                        description: googleBooksResponse.volumeInfo.publishedDate,
-                        pageCount: googleBooksResponse.volumeInfo.pageCount,
-                        printType: googleBooksResponse.volumeInfo.printType,
-                        categories: googleBooksResponse.volumeInfo.categories,
-                        averageRating: googleBooksResponse.volumeInfo.averageRating,
-                        ratingsCount: googleBooksResponse.volumeInfo.ratingsCount,
-                        thumbnail: googleBooksResponse.volumeInfo.imageLinks.thumbnail,
-                        language: googleBooksResponse.volumeInfo.language,
-                        user: req.user._id
+                    let newBook = {
+                        title: '',
+                        subtitle: '',
+                        authors: '',
+                        publisher: '',
+                        publishedDate: '',
+                        description: '',
+                        pageCount: '',
+                        printType: '',
+                        categories: '',
+                        averageRating: '',
+                        ratingsCount: '',
+                        language: '',
                     }
 
+                    for (let prop in newBook) {
+                        if ((bR.volumeInfo.hasOwnProperty(prop)) && (typeof (bR.volumeInfo[prop]) !== 'undefined')) {
+                            newBook[prop] = bR.volumeInfo[prop]
+                        }
+                        else {
+                            newBook[prop] = '';
+                        }
+                    }
+
+                    //add user and Google ID reference
+                    newBook.user = req.user._id
+                    newBook.googleID = bR.id;
+
+                    if ((bR.volumeInfo.hasOwnProperty('imageLinks')) && (typeof (bR.volumeInfo.imageLinks) !== 'undefined')) {
+                        if (bR.volumeInfo.imageLinks.hasOwnProperty('thumbnail') && typeof (bR.volumeInfo.imageLinks.thumbnail) !== 'undefined') {
+                            newBook.thumbnail = bR.volumeInfo.imageLinks.thumbnail;
+                        }
+                        else if (bR.volumeInfo.imageLinks.hasOwnProperty('smallThumbnail') && typeof (bR.volumeInfo.imageLinks.smallThumbnail) !== 'undefined') {
+                            newBook.thumbnail = bR.volumeInfo.imageLinks.smallThumbnail;
+                        }
+                        else if (bR.volumeInfo.imageLinks.hasOwnProperty('small') && typeof (bR.volumeInfo.imageLinks.small) !== 'undefined') {
+                            newBook.thumbnail = bR.volumeInfo.imageLinks.small;
+                        }
+                        else if (bR.volumeInfo.imageLinks.hasOwnProperty('medium') && typeof (bR.volumeInfo.imageLinks.medium) !== 'undefined') {
+                            newBook.thumbnail = bR.volumeInfo.imageLinks.medium;
+                        }
+                        else if (bR.volumeInfo.imageLinks.hasOwnProperty('large') && typeof (bR.volumeInfo.imageLinks.large) !== 'undefined') {
+                            newBook.thumbnail = bR.volumeInfo.imageLinks.large;
+                        }
+                    }
+                    else {
+                        newBook.thumbnail = '';
+                    }
+
+                    //assign cleaned up data model that matches our schema: newBook to bookResults 
+                    bR = newBook;
 
 
-                    console.log('\n\n--- newBook Object: ---\n\n', newBook)
+                    console.log('\n\n--- newBook Object in Create: ---\n\n', newBook)
 
                     return newBook
                 })
                 .then(bookData => {
                     console.log('\nchecking bookData gID', bookData.googleID)
 
+
+
                     Book.findOne({ googleID: bookData.googleID })
                         .then(findResults => {
                             console.log('findResults', findResults)
 
+                            //add the book to the collection if no books currently exist with same googleID
                             if (findResults === null) {
-
                                 console.log('\n\n adding:', bookData.title, '\n')
 
+                                //put the book in the bookshelf's ref array
                                 return Book.create(bookData)
                                     .then(bookDataTwo => {
-                                        Book.findOne({ googleID: bookDataTwo.googleID }).populate('user');
+
+                                        Book.findOne({ googleID: bookDataTwo.googleID }).populate('user')
+                                            .then(bookDataThree => {
+                                                console.log('\nbookDataThree\n', bookDataThree)
+
+                                                Bookshelf.find({ name: req.body.bookshelf })
+                                                    .then((b) => {
+                                                        console.log('\nthis is b[0]: \n', b[0]);
+
+                                                        b[0].books.push(bookDataThree._id);
+                                                        console.log('\nthis is b[0] after push: \n', b[0]);
+
+                                                        b[0].populate('books');
+                                                        console.log('\nthis is b after push and populate: \n', b)
+                                                    })
+
+                                            })
                                     })
+
                             }
+                            //otherwise, don't add and console.log error message
                             else {
                                 console.log('\n\n Not added:', bookData.title, '\n')
+                                // res.redirect('/search')
                             }
-
                         })
-
                 })
+
                 .then(() => {
+
                     res.redirect('/home');
                 })
                 .catch(next)

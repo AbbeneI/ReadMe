@@ -19,43 +19,33 @@ const bookSchema = new mongoose.Schema({
     },
     publisher: {
         type: String,
-        required: true
     },
     publishedDate: {
         type: String,
-        required: true
     },
     description: {
         type: String,
-        required: true
     },
     pageCount: {
         type: Number,
-        required: true
     },
     printType: {
         type: String,
-        required: true
     },
     categories: {
         type: [String],
-        required: true
     },
     averageRating: {
         type: Number,
-        required: true
     },
     ratingsCount: {
         type: Number,
-        required: true
     },
     thumbnail: {
         type: String,
-        required: true
     },
     language: {
         type: String,
-        required: true
     },
     reviews: {
         type: [Schema.Types.ObjectId],

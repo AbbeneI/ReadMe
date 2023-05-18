@@ -99,7 +99,7 @@ async function edit(req, res, next) {
             return bookshelf.updateOne(req.body)
         })
         .then((bookshelf) => {
-            res.redirect(`/bookshelves/${req.params.id}`)
+            res.redirect(`/bookshelf/${req.params.id}`)
         })
         .catch(next)
 }

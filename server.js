@@ -12,7 +12,6 @@ const indexRouter = require('./routes/index');
 const bookshelvesRouter = require('./routes/bookshelves');
 const booksRouter = require('./routes/books');
 
-
 const app = express();
 
 require('./config/database');

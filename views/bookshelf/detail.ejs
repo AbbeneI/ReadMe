@@ -5,9 +5,9 @@
     </h1>
     <h6>Edit your bookshelf name</h6>
     <form action="/bookshelf/<%= bookshelf._id %>?_method=PATCH" method="POST" autocomplete="off">
-        <label for="name">
+        <label style="position: relative;" for="name">
             <input value="<%= bookshelf.name %>" name="name">
         </label>
-        <button type="submit">Edit</button>
+        <button class="btn my-button" type="submit">Edit</button>
     </form>
     <%- include('../partials/footer') %>
