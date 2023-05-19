@@ -15,7 +15,7 @@ async function searchStart(req, res, next) {
 
         console.log('\n checking user:', req.user, '\nreq.params', req.params, '\nreq.body', req.body);
         res.render('books/index', {
-            
+
         });
     }
     else {
@@ -51,7 +51,7 @@ async function search(req, res, next) {
                             inBooksArr.push(b.googleID)
                         })
 
-                        console.log('\n--- inBooksArr: ---\n', inBooksArr, '\nsearchResults--\n', searchResults);
+                        // console.log('\n--- inBooksArr: ---\n', inBooksArr, '\nsearchResults--\n', searchResults);
 
                         searchResults.forEach(book => {
                             inBooksArr.forEach(bookID => {
@@ -64,7 +64,7 @@ async function search(req, res, next) {
                             });
                         });
 
-                        console.log('\n--- searchResults: ---\n', searchResults);
+                        // console.log('\n--- searchResults: ---\n', searchResults);
 
                         return searchResults;
                     })
@@ -267,27 +267,29 @@ async function create(req, res, next) {
 
                     Book.findOne({ googleID: bookData.googleID })
                         .then(findResults => {
-                            console.log('findResults', findResults)
+                            // console.log('findResults', findResults)
                             //add the book to the collection if no books currently exist with same googleID
                             if (findResults === null) {
-                                console.log('\n\n adding:', bookData.title, '\n')
+                                // console.log('\n\n adding:', bookData.title, '\n')
+
                                 //put the book in the bookshelf's ref array
-                                return Book.create(bookData)
+                                Book.create(bookData)
                                     .then(bookDataTwo => {
 
                                         Book.findOne({ googleID: bookDataTwo.googleID }).populate('user')
                                             .then(bookDataThree => {
                                                 console.log('\nbookDataThree\n', bookDataThree)
 
-                                                Bookshelf.find({ name: req.body.bookshelf })
+                                                Bookshelf.findOne({ name: req.body.bookshelf })
                                                     .then((b) => {
-                                                        console.log('\nthis is b[0]: \n', b[0]);
-
-                                                        b[0].books.push(bookDataThree._id);
-                                                        console.log('\nthis is b[0] after push: \n', b[0]);
-
-                                                        b[0].populate('books');
-                                                        console.log('\nthis is b after push and populate: \n', b)
+                                                        console.log('\nthis is b: \n', b);
+                                                        let bcopy = b;
+                                                        bcopy.books.push(bookDataThree._id);
+                                                        console.log('\nthis is b after push: \n', b);
+                                                        return b.updateOne(bcopy)
+                                                    })
+                                                    .then((btwo) => {
+                                                        res.redirect('/home');
                                                     })
                                             })
                                     })
@@ -295,15 +297,13 @@ async function create(req, res, next) {
                             //otherwise, don't add and console.log error message
                             else {
                                 console.log('\n\n Not added:', bookData.title, '\n')
-                                // res.redirect('/search')
                             }
                         })
                 })
 
-                .then(() => {
-
-                    res.redirect('/home');
-                })
+                // .then(() => {
+                //     res.redirect('/home');
+                // })
                 .catch(next)
 
         } catch (err) {

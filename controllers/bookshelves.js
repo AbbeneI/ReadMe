@@ -12,23 +12,18 @@ module.exports = {
 };
 
 async function index(req, res, next) {
-    // console.log('\n checking user:', req.user, '\n')
     if (req.user) {
         Bookshelf.find({ user: req.user._id })
             .then(bookShelves => {
                 Book.find({ user: req.user.id })
                     .then(books => {
-                        // console.log('\n\n------bookshelves in index----\n', arr[0], '\n------books in index----\n', arr[1])
                         res.render('bookshelf/index', {
                             title: 'My Library',
                             bookshelves: bookShelves,
                             books
                         });
                     })
-
-
             })
-
             .catch(next)
     }
     else {
@@ -71,7 +66,6 @@ async function create(req, res, next) {
     else {
         res.redirect('/');
     }
-
 }
 
 async function detail(req, res, next) {
@@ -79,17 +73,23 @@ async function detail(req, res, next) {
 
         Bookshelf.findById(req.params.id)
             .then(bookshelf => {
-                // console.log('\n----------- Debugging Bookshelves Controller: detail() -----------\n', 'bookshelf', bookshelf, '\n');
+                // console.log('\n----------- Debugging Bookshelves Controller: detail()1 -----------\n', 'bookshelf', bookshelf, '\n');
 
-                let books = Book.find({})
-               return [bookshelf,books]
-            })
-            .then((arr) => {
+                Book.find({})
+                    .then((books) => {
+                        // console.log('\n----------- Debugging Bookshelves Controller: detail()2 -----------\n', 'bookshelf\n', bookshelf, '\nbooks\n', books, '\n');
 
-                res.render('bookshelf/detail', {
-                    bookshelf: arr[0],
-                    books: arr[1]
-                });
+                        books.forEach(book => {
+                            if (bookshelf.books.includes(book._id)) {
+                                console.log('\nfound a book in bookshelf:', book)
+                            }
+                        })
+
+                        res.render('bookshelf/detail', {
+                            bookshelf,
+                            books
+                        });
+                    })
             })
             .catch(next)
     }

@@ -46,9 +46,15 @@ None yet
 
 
 ## Section 4: Getting Started  
+myLibrary uses the Google Book API to search for books and add them to your digital library. Click on "Search" in the top nav, 
+#### ERD Diagram
+![ERD Diagram](Planning/ERD_Diagram/Project_2_ERD.jpeg)
 
-In this section include the link to your deployed app and any instructions you deem important:
+#### ERD Diagram
+![ERD Diagram](Planning/ERD_Diagram/Project_2_ERD.jpeg)
 
+#### ERD Diagram
+![ERD Diagram](Planning/ERD_Diagram/Project_2_ERD.jpeg)
 
 ## Section 5: Next Steps
 
