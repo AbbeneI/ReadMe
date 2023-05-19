@@ -36,7 +36,7 @@ async function search(req, res, next) {
 
         console.log('\n\nsearch terms:"' + searchTerms + '"');
 
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&maxResults=20`)
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&maxResults=3`)
             .then((res) => res.json())
             .then(googleBooksResponse => {
                 // console.log('\n--- GoogleBooksResponse: ---\n', googleBooksResponse);
@@ -55,7 +55,8 @@ async function search(req, res, next) {
 
                         searchResults.forEach(book => {
                             inBooksArr.forEach(bookID => {
-                                if (book.id === bookID) {
+                                console.log('\ncomparing: ', bookID + ' === ' + book.id + '\n')
+                                if (book.id == bookID) {
                                     book['inDB'] = true
                                 }
                                 else {
@@ -115,7 +116,7 @@ async function search(req, res, next) {
                                 categories: '',
                                 averageRating: '',
                                 ratingsCount: '',
-                                language: '',
+                                language: ''
                             }
 
                             for (let prop in newBook) {
@@ -130,6 +131,7 @@ async function search(req, res, next) {
                             //add user and Google ID reference
                             newBook.user = req.user._id
                             newBook.googleID = bR.id;
+                            newBook.inDB = bR.inDB;
 
                             if ((bR.volumeInfo.hasOwnProperty('imageLinks')) && (typeof (bR.volumeInfo.imageLinks) !== 'undefined')) {
                                 if (bR.volumeInfo.imageLinks.hasOwnProperty('thumbnail') && typeof (bR.volumeInfo.imageLinks.thumbnail) !== 'undefined') {

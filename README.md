@@ -9,7 +9,15 @@ My Library will allow the user to create Bookshelves, which are collections of B
 ## Section 2: Screenshots:
 
 ### App Screenshots  
-None yet
+
+#### Login Page
+![Screenshot of Login Page](Planning/Screenshots/login.png)
+
+#### Home Page
+![Screenshot of Home Page](Planning/Screenshots/home.png)
+
+#### Edit Page
+![Screenshot of Edit Page](Planning/Screenshots/edit.png)
 
 
 ### Wireframes    
@@ -46,22 +54,16 @@ None yet
 
 
 ## Section 4: Getting Started  
-myLibrary uses the Google Book API to search for books and add them to your digital library. Click on "Search" in the top nav, 
-#### ERD Diagram
-![ERD Diagram](Planning/ERD_Diagram/Project_2_ERD.jpeg)
+myLibrary uses the Google Book API to search for books and add them to your digital library. Click on "Search" in the top nav in order to search for books. Add them to a bookshelf, and then view the bookshelf by clicking on it in the left-side nav.
 
-#### ERD Diagram
-![ERD Diagram](Planning/ERD_Diagram/Project_2_ERD.jpeg)
 
-#### ERD Diagram
-![ERD Diagram](Planning/ERD_Diagram/Project_2_ERD.jpeg)
 
 ## Section 5: Next Steps
 
 Planned future enhancements (icebox items).
  - Copy books from one bookshelf to another
  - New and trending books on my homepage
- - Formatted Book Reviews
+ - Implement Book Reviews
 
 
 
