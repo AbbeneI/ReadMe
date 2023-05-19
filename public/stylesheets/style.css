@@ -115,7 +115,7 @@ button {
 }
 
 .bookshelf.title {
-  /* border-bottom: 1px solid black; */
+  padding: 1em;
 }
 
 .bookshelf.add {
@@ -142,7 +142,6 @@ button {
 .bookshelf a.first-link {
   height: 100%;
   width: 15px;
-  background: red;
 }
 
 .bookshelf a:hover {
@@ -244,9 +243,9 @@ button {
 
 .books-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
-  width: 80%;
+  max-width: 80%;
   height: 100%;
   /* border: 1px solid grey; */
   border-left: 1px solid black;
@@ -264,8 +263,8 @@ button {
 }
 
 .book-results {
-  width: 1400px;
-  padding: 10px 0px;
+  width: 900px;
+  padding: 1em;
   height: fit-content;
   position: relative;
 
@@ -273,6 +272,7 @@ button {
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
@@ -484,14 +484,29 @@ label {
   left: 0;
   padding: 1em;
   border-bottom: 1px solid black;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+
   gap: .5em;
 }
 
-.nav-link.logout {}
+.nav-link {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: 100%;
+}
+
+
+.nav-link.right {
+  float: right;
+  margin-right: 20px;
+}
+
+.nav-link.left {
+  float: left;
+  margin-left: 20px;
+}
 
 .search-container {
   width: 100%;
@@ -632,4 +647,9 @@ h4 {
 .bookshelf-select {
   display: block;
   transform: translateY(100%);
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
 }

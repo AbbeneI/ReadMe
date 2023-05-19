@@ -1,13 +1,6 @@
 <%- include('../partials/header') %>
     <h1>My Library</h1>
-    <div class="search-container">
-        <input class="search" type="search" name="search" pattern="\S+.*" autocomplete="off" required>
-        <span class="input-placeholder">Search</span>
-    </div>
 
-    <div class="newandpop-container">
-
-    </div>
     <section class="main">
 
         <div class="bookshelf-container">
@@ -40,11 +33,14 @@
                 <% }); } %>
         </div>
         <div class="books-container">
-            <div class="bookshelf title">My Books</div>
-            <% if(user){ books.forEach(function(b) { %>
-                <div class="book-results">
+            <div class="bookshelf title">
+                <h4> My Books</h4>
+            </div>
+            <div class="book-results">
+                <% let count=0; %>
 
-                    <% let count=0; %>
+                    <% if(user){ books.forEach(function(b) { %>
+
 
                         <div class="book vert">
                             <div class="book-bg"></div>
@@ -69,17 +65,7 @@
                                                         <% }}); %>
                             </h4>
 
-                            <div class="book-tags">
-                                <% if(Array.isArray(b.categories)) { b.categories.forEach(function(category, i) { %>
-                                    <span>
-                                        <%= category %>
-                                    </span>
-                                    <% }); } else{ %>
-                                        <span>
-                                            <%= b.category %>
-                                        </span>
-                                        <% } %>
-                            </div>
+
 
                             <div class="book-rating">
 
@@ -116,7 +102,7 @@
                                     <% }%>
                         </div>
                         <% count++ }); } %>
-                </div>
+            </div>
     </section>
 
     <%- include('../partials/footer') %>

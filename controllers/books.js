@@ -12,9 +12,10 @@ module.exports = {
 async function searchStart(req, res, next) {
     if (req.user) {
 
+
         console.log('\n checking user:', req.user, '\nreq.params', req.params, '\nreq.body', req.body);
         res.render('books/index', {
-
+            
         });
     }
     else {
@@ -316,34 +317,3 @@ async function create(req, res, next) {
     }
 
 }
-
-
-
-                            // function assignProperty(p) {
-                            //     if (typeof (p) !== 'undefined') {
-                            //         return p;
-                            //     }
-                            //     else {
-                            //         return '';
-                            //     }
-                            // }
-
-
-                            // let newBook = {
-
-                            //     googleID: assignProperty(bR.id),
-                            //     title: assignProperty(bR.volumeInfo.title),
-                            //     subtitle: assignProperty(bR.volumeInfo.subtitle),
-                            //     authors: assignProperty(bR.volumeInfo.authors),
-                            //     publisher: assignProperty(bR.volumeInfo.publisher),
-                            //     publishedDate: assignProperty(bR.volumeInfo.publishedDate),
-                            //     description: assignProperty(bR.volumeInfo.publishedDate),
-                            //     pageCount: assignProperty(bR.volumeInfo.pageCount),
-                            //     printType: assignProperty(bR.volumeInfo.printType),
-                            //     categories: assignProperty(bR.volumeInfo.categories),
-                            //     averageRating: assignProperty(bR.volumeInfo.averageRating),
-                            //     ratingsCount: assignProperty(bR.volumeInfo.ratingsCount),
-                            //     thumbnail: assignProperty(bR.volumeInfo.imageLinks.thumbnail),
-                            //     language: assignProperty(bR.volumeInfo.language),
-                            //     user: assignProperty(req.user._id)
-                            // }
