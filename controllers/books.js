@@ -12,7 +12,6 @@ module.exports = {
 async function searchStart(req, res, next) {
     if (req.user) {
 
-
         console.log('\n checking user:', req.user, '\nreq.params', req.params, '\nreq.body', req.body);
         res.render('books/index', {
 
@@ -20,10 +19,7 @@ async function searchStart(req, res, next) {
     }
     else {
         res.redirect('/');
-
     }
-
-
 }
 
 async function search(req, res, next) {
@@ -36,7 +32,7 @@ async function search(req, res, next) {
 
         console.log('\n\nsearch terms:"' + searchTerms + '"');
 
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&maxResults=3`)
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&maxResults=20`)
             .then((res) => res.json())
             .then(googleBooksResponse => {
                 // console.log('\n--- GoogleBooksResponse: ---\n', googleBooksResponse);
@@ -230,7 +226,6 @@ async function create(req, res, next) {
                             newBook[prop] = '';
                         }
                     }
-
                     //add user and Google ID reference
                     newBook.user = req.user._id
                     newBook.googleID = bR.id;
@@ -255,10 +250,8 @@ async function create(req, res, next) {
                     else {
                         newBook.thumbnail = '';
                     }
-
                     //assign cleaned up data model that matches our schema: newBook to bookResults 
                     bR = newBook;
-
 
                     console.log('\n\n--- newBook Object in Create: ---\n\n', newBook)
 
@@ -302,7 +295,6 @@ async function create(req, res, next) {
                             }
                         })
                 })
-
                 // .then(() => {
                 //     res.redirect('/home');
                 // })

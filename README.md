@@ -54,8 +54,8 @@ My Library will allow the user to create Bookshelves, which are collections of B
 
 
 ## Section 4: Getting Started  
-myLibrary uses the Google Book API to search for books and add them to your digital library. Click on "Search" in the top nav in order to search for books. Add them to a bookshelf, and then view the bookshelf by clicking on it in the left-side nav.
-(Link to Project)[https://mylibrary.fly.dev/]
+myLibrary uses the Google Book API to search for books and add them to your digital library. Click on "Search" in the top nav in order to search for books. Add them to a bookshelf, and then view the bookshelf by clicking on it in the left-side nav.  
+[Link to Project](https://mylibrary.fly.dev/)
 
 
 ## Section 5: Next Steps

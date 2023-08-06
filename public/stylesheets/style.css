@@ -1,5 +1,5 @@
 :root {
-  /* --span-color: rgba(150, 150, 150, 0.5); */
+  /* --span-color: rgba(170, 170, 170, 0.5); */
   --span-color: #000;
   --book-bg: grey;
 
@@ -168,15 +168,15 @@ button {
   width: 10%;
   min-width: 1px;
   min-height: 10px;
-  background: var(--span-color);
+  background: black;
   position: absolute;
-
+  opacity: 0.5;
   transition: background 0.1s ease;
 }
 
 
 .bookshelf:hover div form button span {
-  background: rgba(150, 150, 150, 1);
+  opacity: 1
 }
 
 .add span:first-child {
@@ -210,7 +210,7 @@ button {
   width: 10%;
   min-width: 1px;
   min-height: 10px;
-  background: rgba(150, 150, 150, 0.5);
+  background: rgba(170, 170, 170, 0.5);
   position: absolute;
 
   transition: background 0.1s ease;
@@ -442,8 +442,9 @@ label {
 
 .login {
   --size: min(40vw, 40vh);
-  height: var(--size);
-  width: var(--size);
+
+  height: 100%;
+  width: 50%;
 
   /* border: 1px solid black; */
 
@@ -468,7 +469,7 @@ label {
 }
 
 .google-btn-container {
-  height: 55%;
+  height: 30%;
   width: 100%;
   display: flex;
   justify-content: center;
